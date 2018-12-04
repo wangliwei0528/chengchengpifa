@@ -187,6 +187,7 @@
             }
           })
           .then(res => {
+            // console.log(res)
             let resdata = []
             this.treeData(res.data.data, resdata)
             this.data4 = resdata;
@@ -229,6 +230,7 @@
             }
           })
           .then(res => {
+            // console.log(res)
             let resdata = []
             this.treeData(res.data.data, resdata)
             this.data4 = resdata;

@@ -705,7 +705,7 @@
     padding: 8px 17px;
 }
 .el-button+.el-button {
-    margin-left: 0px;
+    margin-left: 10px;
 }
 </style>
 <style>

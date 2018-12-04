@@ -340,6 +340,7 @@
           })
           .then(res => {
             this.industrys1 = res.data.data.data.industrys;
+            console.log(this.industrys1)
             this.data = res.data.data.data.wholesalers.data;
             if (res.data.data.data.wholesalers.total < res.data.data.data.wholesalers.per_page) {
               this.pagination = false;
@@ -778,13 +779,12 @@
     border: 0 ;
     color: #fff !important;
   }
-  .el-button--small, .el-button--small.is-round {
+.el-button--small, .el-button--small.is-round {
     padding: 8px 17px;
 }
 .el-button+.el-button {
     margin-left: 0px;
 }
-
 </style>
 <style>
   .el-table__empty-block {

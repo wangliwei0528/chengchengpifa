@@ -128,7 +128,7 @@
     width: 100%;
     height: 0.5rem;
     padding-left: 70px;
-    font-size: 0.24rem;
+    font-size: 0.28rem;
   }
 
 
@@ -151,6 +151,7 @@
 
   .el-menu-item:hover {
     color: rgb(151, 139, 200) !important;
+    /* background-color: rgba(0, 198, 176, 0.1) !important; */
   }
   .el-menu-item, .el-submenu__title{
     height: 50px;

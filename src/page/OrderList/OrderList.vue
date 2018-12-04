@@ -104,7 +104,7 @@
         <el-table-column label="订单列表">
           <el-table-column prop="serial" label="订单编号" align="center"></el-table-column>
           <el-table-column prop="title" label="收货人名称" align="center"></el-table-column>
-          <el-table-column prop="logistic_id" label="物流公司ID" align="center"></el-table-column>
+          <el-table-column prop="logistic_title" label="物流公司" align="center"></el-table-column>
           <el-table-column prop="trade_no" label="物流单号" align="center"></el-table-column>
           <el-table-column prop="mobile" label="收货电话" align="center"></el-table-column>
           <el-table-column prop="status" label="订单状态" align="center">
@@ -127,8 +127,13 @@
                 class="modify"
                 :style="{background: scope.row.receive == 0?'#f2524c':'#00c6b0'}"
               >
-                {{scope.row.receive ==
-                0?'未发货':'已发货'}}
+               <code v-if="scope.row.status == 0">待支付</code>
+              <code v-if="scope.row.status == 1">待发货</code>
+              <code v-if="scope.row.status == 2">待收货</code>
+              <code v-if="scope.row.status == 3">已完成</code>
+              <code v-if="scope.row.status == 4">退款申请中</code>
+              <code v-if="scope.row.status == 5">退款已完成</code>
+              <code v-if="scope.row.status == 6">已结算</code>
               </button>
             </template>
           </el-table-column>
@@ -210,7 +215,7 @@
           <div class="title_left">货物数量</div>
           <div class="title_right">{{list.goodNums}}</div>
         </div>
-        <div v-show="list.logistic_title != '0'">
+        <div v-show="list.status != '0'&&list.status != '1'">
           <div class="title">
             <div class="title_left">物流公司</div>
             <div class="title_right">{{list.logisticName}}</div>
@@ -335,19 +340,12 @@ export default {
           }
         })
         .then(res => {
+          console.log(res)
+          this.list = res.data.data
           if (res.data.status == 200) {
+            this.list = res.data.data
             this.mask = true;
-            this.mask1 = true;
-            if (res.data.data.status == 1) {
-              this.list = res.data.data;
-            } else {
-              this.mask = false;
-              this.mask1 = false;
-              this.$message({
-                message: res.data.data.data.message,
-                type: "warning"
-              });
-            }
+            this.mask1 = true;            
           }
         });
     },
