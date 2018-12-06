@@ -243,7 +243,6 @@
           })
       },
       editClick(index, row) {
-        console.log()
         axios.get("/api/admin/good_edit_show/" + row.id,
           {
             headers: {

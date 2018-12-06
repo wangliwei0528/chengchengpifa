@@ -11,7 +11,7 @@
             <div class="grid-content bg-purple">
               <div>
                 <span style="font-size: 16px;float: left;margin-right: 4px">订单编号</span>
-                <el-input v-model="serial" style="width: 270px;float: left; margin-left: 10px"></el-input>
+                <el-input v-model="serial" style="width: 150px;float: left; margin-left: 10px"></el-input>
               </div>
             </div>
           </el-col>
@@ -21,7 +21,7 @@
                 <span
                   style="font-size: 16px;float: left;margin-top: 5px"
                 >收&nbsp;&nbsp;货&nbsp;&nbsp;人</span>
-                <el-input v-model="name" style="width: 270px;float: left; margin-left: 10px"></el-input>
+                <el-input v-model="name" style="width: 150px;float: left; margin-left: 10px"></el-input>
               </div>
             </div>
           </el-col>
@@ -31,7 +31,7 @@
                 <span style="font-size: 16px;float: left;margin-top: 5px">订单状态</span>
                 <el-select
                   v-model="ruleForm.logistic"
-                  style="width: 270px;float: left; margin-left: 10px"
+                  style="width: 150px;float: left; margin-left: 10px"
                 >
                   <el-option
                     v-for="item in logistic"
@@ -52,7 +52,7 @@
             <div class="grid-content bg-purple">
               <div>
                 <span style="font-size: 16px;float: left;margin-top: 5px">联系电话</span>
-                <el-input v-model="mobile" style="width: 270px;float: left; margin-left: 10px"></el-input>
+                <el-input v-model="mobile" style="width: 150px;float: left; margin-left: 10px"></el-input>
               </div>
             </div>
           </el-col>
@@ -65,7 +65,7 @@
                     v-model="value1"
                     type="date"
                     placeholder="选择开始时间"
-                    style="width: 270px;float: left; margin-left: 10px"
+                    style="width: 150px;float: left; margin-left: 10px"
                   ></el-date-picker>
                 </div>
               </div>
@@ -79,7 +79,7 @@
                   v-model="value2"
                   type="date"
                   placeholder="选择结束时间"
-                  style="width: 270px;float: left;margin-left: 10px"
+                  style="width: 150px;float: left;margin-left: 10px"
                 ></el-date-picker>
               </div>
             </div>
@@ -127,13 +127,13 @@
                 class="modify"
                 :style="{background: scope.row.receive == 0?'#f2524c':'#00c6b0'}"
               >
-               <code v-if="scope.row.status == 0">待支付</code>
-              <code v-if="scope.row.status == 1">待发货</code>
-              <code v-if="scope.row.status == 2">待收货</code>
-              <code v-if="scope.row.status == 3">已完成</code>
-              <code v-if="scope.row.status == 4">退款申请中</code>
-              <code v-if="scope.row.status == 5">退款已完成</code>
-              <code v-if="scope.row.status == 6">已结算</code>
+                <code v-if="scope.row.status == 0">待支付</code>
+                <code v-if="scope.row.status == 1">待发货</code>
+                <code v-if="scope.row.status == 2">待收货</code>
+                <code v-if="scope.row.status == 3">已完成</code>
+                <code v-if="scope.row.status == 4">退款申请中</code>
+                <code v-if="scope.row.status == 5">退款已完成</code>
+                <code v-if="scope.row.status == 6">已结算</code>
               </button>
             </template>
           </el-table-column>
@@ -198,7 +198,7 @@
         <div class="title">
           <div class="title_left1">货物名称</div>
           <div class="title_left2" style="height: 2rem">
-            <div class="title_right1" v-for="val in list.goods">{{val.title}} × {{val.qty}}</div>
+            <div class="title_right1" v-for="(val,index) in list.goods" :key='index'>{{val.title}} × {{val.qty}}</div>
           </div>
         </div>
         <div class="title">
@@ -226,14 +226,21 @@
           </div>
           <div class="title">
             <div class="title_left1">物流状态</div>
-            <div class="title_left2">
-              <div class="title_right1">{{list.logisticMessage}}</div>
+            <div class="title_left2" style='width:600px'>
+              <div class="title_right1">{{list.logisticMessage.Status}}</div>
+              <ul>
+                <li v-for="(item,index) in goodsStatus" :key="index">
+                  <span class="title_right1">{{item.TrackDate}}</span>
+                  <span class="title_right1">{{item.ShortStatus}}</span>
+                  <span class="title_right1">{{item.TrackStatus}}</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
       <div class="editrole_bottom">
-        <button @click="cancel" class="modify1">取消</button>
+        <button @click="cancel" class="modify1">确定</button>
       </div>
     </div>
 
@@ -256,6 +263,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      goodsStatus: [],
       data: [],
       mask: false,
       mask1: false,
@@ -316,7 +324,7 @@ export default {
           }
         })
         .then(res => {
-          console.log(res)
+          console.log(res);
           this.data = res.data.data.data.orders.data;
           this.logistic = res.data.data.data.logistic;
           if (
@@ -340,12 +348,22 @@ export default {
           }
         })
         .then(res => {
-          console.log(res)
-          this.list = res.data.data
+          console.log(res);
           if (res.data.status == 200) {
-            this.list = res.data.data
-            this.mask = true;
-            this.mask1 = true;            
+            if (!res.data.data.data) {
+              this.list = res.data.data;
+              if (this.list.logisticMessage) {
+                this.goodsStatus = this.list.logisticMessage.TrackList.reverse();
+              }
+
+              this.mask = true;
+              this.mask1 = true;
+            } else if (res.data.data.status !== 200) {
+              this.$message({
+                message: res.data.data.data.message,
+                type: "warning"
+              });
+            }
           }
         });
     },
@@ -492,7 +510,7 @@ th {
 }
 
 .editrole {
-  width: 10.5rem;
+  width: 15.5rem;
   padding: 0 0.2rem 0 0.2rem;
   background: #ffffff;
   position: fixed;

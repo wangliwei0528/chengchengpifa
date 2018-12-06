@@ -98,7 +98,34 @@
             <img width="100%" :src="dialogImageUrl" alt>
           </el-dialog>
         </el-form-item>
-        <!--  -->
+       <el-form-item label="产品图片" prop="content">
+          <el-form ref="form" label-width="10px">
+            <div>
+              <!-- 图片上传组件辅助-->
+              <el-upload
+                class="avatar-uploader"
+                action="api/admin/upFile"
+                name="img"
+                :show-file-list="false"
+                :headers="header"
+                :on-success="uploadSuccess"
+                :on-error="uploadError"
+                :before-upload="beforeUpload"
+              ></el-upload>
+              <!--富文本编辑器组件-->
+              <quill-editor
+                class="editor"
+                v-model="ruleForm.content"
+                ref="myQuillEditor"
+                serverUrl="api/admin/upFile"
+                :options="editorOption"
+                @blur="onEditorBlur($event)"
+                @focus="onEditorFocus($event)"
+                @ready="onEditorReady($event)"
+              ></quill-editor>
+            </div>
+          </el-form>
+        </el-form-item>
       </el-form>
       <el-table border :data="tableData" style="width:80%;margin-left: 100px">
         <el-table-column prop="name" label="产品名称" align="center"></el-table-column>
@@ -174,7 +201,7 @@ export default {
   data() {
     return {
       imgList: [],
-      banner: [],
+      banner:[],
       token: "",
       images: [],
       cover: "",
@@ -299,20 +326,20 @@ export default {
         srcOthers2: cover,
         content: content
       };
-      let checkList = this.edit.specs.map(itm => itm.id);
-      this.ruleForm.checkList = checkList;
+      // let checkList = this.edit.specs.map(itm => itm.id);
+      // this.ruleForm.checkList = checkList;
       this.tableData = this.edit.skus;
       let temp = this.edit.goodImages;
-      if (temp.length > 0) {
+      if (temp) {
         for (let t = 0; t < temp.length; t++) {
           this.imgList.push({ name: "name" + temp[t].id, url: temp[t].cover });
-          // if (t === 0) {
-          //   this.imgList.cover += temp[t].cover
-          // } else {
-          //   this.imgList.cover += ',' + temp[t].cover;
-          // }
+          if (t === 0) {
+            this.imgList.cover += temp[t].cover
+          } else {
+            this.imgList.cover += ',' + temp[t].cover;
+          }
         }
-        console.log(this.imgList);
+        // console.log(this.imgList)
       }
     },
     //获取header
@@ -387,13 +414,9 @@ export default {
     },
     //移除图片列表
     handleRemove(file, fileList) {
-      console.log(this.imgList);
-      if (this.imgList > 3) {
-        this.imgList--;
-        return;
-      }
-      this.imgList--;
+      // console.log(file, fileList);
       this.imgList = fileList;
+       console.log(this.imgList)
     },
     //展示图片列表
     handlePictureCardPreview(file) {
@@ -402,8 +425,8 @@ export default {
     },
     //多图上传成功
     uploadSuccessed(res, file, fileList) {
-      this.banner.push(res.join());
-      console.log(this.banner);
+      this.banner.push(res.join());  
+      console.log(this.banner)
     },
     uploadMore() {
       this.$message.error("最多上传4张");
@@ -490,15 +513,18 @@ export default {
     // 确定提交
     submission() {
       let imgList = this.imgList.map(itm => itm.url);
-      console.log(imgList);
-      let banner = this.banner;
-      if (banner == undefined) {
+      // console.log(imgList)
+      // let banner = this.imgList;
+      // if (banner == undefined) {
+      //   this.images = imgList;
+      // } else {
+      //   imgList.push(banner.join())      
+      //   this.images = imgList;
+      // }
+        // imgList.push(this.imgList.join())      
         this.images = imgList;
-      } else {
-        imgList.push(banner.join());
-        this.images = imgList;
-      }
-      console.log(this.images);
+      console.log(this.images)
+
       let price = this.tableData.some(itm => itm.price == null);
       let cover = this.tableData.some(itm => itm.cover == null);
       let trade_price = this.tableData.some(itm => itm.trade_price == null);

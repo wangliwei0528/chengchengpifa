@@ -128,10 +128,10 @@
         </el-form-item>
       </el-form>
       <el-table border :data="tableData" v-show="specs" style="width:80%;margin-left: 100px">
-        <el-table-column prop="name" label="产品名称" align="center"></el-table-column>
-        <el-table-column prop="cover" label="产品封面">
+        <el-table-column prop="name" label="产品规格" align="center"></el-table-column>
+        <el-table-column prop="cover" label="产品封面" align="center">
           <template slot-scope="scope">
-            <div class="fileBox1">
+            <div class="fileBox1" style='margin:0 auto;position:relative'>
               <span class="fileinput-button1">
                 <img :src="scope.row.cover" alt width="50" height="50">
                 <i v-show="!scope.row.cover" class="el-icon-plus font" id='icon'></i>
@@ -615,10 +615,15 @@ export default {
 
 
 #icon {
+  display:block;
+  width:12px;
+  height:12px;
   font-size: 12px;
   position: absolute;
-  left: 30px;
-  top: 30px;
+  left: 50%;
+  top: 50%;
+  margin-left:-6px;
+  margin-top:-9px;
 }
 .font {
   font-size: 20px;
