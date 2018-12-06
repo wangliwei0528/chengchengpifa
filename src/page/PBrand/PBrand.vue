@@ -521,7 +521,7 @@
     font-size: 16px;
     font-weight: 500;
   }
-.delete:focus,.delete:hover{
+.delete:hover{
     background: red !important;
     border: 0 ;
     color: #fff !important;

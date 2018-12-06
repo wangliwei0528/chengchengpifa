@@ -47,7 +47,7 @@
             label="商户封面"
             align="center">
             <template slot-scope="scope">
-              <img :src="scope.row.cover" style='width:80px;height:80px'>
+              <img :src="scope.row.cover" style='width:50px;height:50px'>
             </template>
           </el-table-column>
           <el-table-column
@@ -96,7 +96,7 @@
             <el-radio v-model="inputRole1" label="2">二级</el-radio>
             <el-radio v-model="inputRole1" label="3">三级</el-radio>
           </el-form-item>
-          <el-form-item label="选择级别 " prop="inputRole2" style="width: 300px" v-if="inputRole1 != 1">
+          <el-form-item label="父类级别 " prop="inputRole2" style="width: 300px" v-if="inputRole1 != 1">
             <el-select v-model="value" style="width: 90px">
               <el-option
                 v-for="item in first"
@@ -116,7 +116,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="排序 " prop="inputSort" style="width: 300px">
-            <el-input v-model="ruleForm.inputSort" placeholder="请输入排序" style="width: 100px"></el-input>
+            <el-input v-model.number="ruleForm.inputSort" placeholder="请输入排序" style="width: 100px" type='number'></el-input>
           </el-form-item>
           <el-form-item label="封面图" prop="img_path">
             <div class="fileBox">
@@ -696,7 +696,7 @@
     font-size: 16px;
     font-weight: 500;
   }
-.delete:focus,.delete:hover{
+.delete:hover{
     background: red !important;
     border: 0 ;
     color: #fff !important;
@@ -705,7 +705,7 @@
     padding: 8px 17px;
 }
 .el-button+.el-button {
-    margin-left: 10px;
+    margin-left: 0px;
 }
 </style>
 <style>

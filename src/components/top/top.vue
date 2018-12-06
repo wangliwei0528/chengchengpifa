@@ -5,7 +5,18 @@
         <div class="grid-content bg-purple">1</div>
       </el-col>
       <el-col :span="3">
-        <button type="text" class="signOut">管理员管理</button>
+        <el-dropdown>
+						<span>
+							<!-- [{{admin.role.title}}] {{admin.mobile}} -->
+							<button type="text" class="signOut">管理员管理</button>
+							<i class="el-icon-arrow-down el-icon--right"></i>
+						</span>
+						<el-dropdown-menu slot="dropdown">
+							<el-dropdown-item command="password" style='color:#00c6b0'>修改密码</el-dropdown-item>
+							<el-dropdown-item command="logout" style='color:#00c6b0'>退出系统</el-dropdown-item>
+						</el-dropdown-menu>
+					</el-dropdown>
+        <!-- <button type="text" class="signOut">管理员管理</button> -->
       </el-col>
       <el-col :span="2" class="out">
         <button type="text" @click="signOut()" class="signOut1">退出</button>

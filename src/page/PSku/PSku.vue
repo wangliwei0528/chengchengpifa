@@ -38,7 +38,7 @@
             label="sku封面"
             align="center">
             <template slot-scope="scope">
-              <img :src="scope.row.cover" style='width:80px;height:80px'>
+              <img :src="scope.row.cover" style='width:50px;height:50px'>
             </template>
           </el-table-column>
           <el-table-column
@@ -583,7 +583,7 @@
     font-weight: 500;
   }
 
-.delete:focus,.delete:hover{
+.delete:hover{
     background: red !important;
     border: 0 ;
     color: #fff !important;

@@ -16,7 +16,7 @@
                   :options="categorys"
                   v-model="ruleForm.categorys"
                   :props="props"
-                  style="margin-left: 20px;width: 200px"
+                  style="margin-left: 20px;width: 150px"
                 ></el-cascader>
               </div>
             </div>
@@ -30,21 +30,22 @@
                   :options="brands"
                   v-model="ruleForm.brands"
                   :props="props"
-                  style="margin-left: 20px;width: 200px"
+                  style="margin-left: 20px;width: 150px"
                 ></el-cascader>
               </div>
             </div>
           </el-col>
-          <el-col :span="10">
+          <el-col :span="8">
             <div class="grid-content bg-purple">
               <div>
-                <span style="font-size: 16px;margin-right: 10px">产品分类名称</span>
+                <span style="font-size: 16px;margin-right: 10px">产品分类</span>
                 <span>
                     <el-input
-                      placeholder="搜索产品列表名称"
+                      placeholder="搜索商品名称"
                       prefix-icon="el-icon-search"
                       v-model="name"
                       @keyup.enter.native="getTableData"
+                       style="width: 150px"
                     >
                     </el-input>
                      <button icon="el-icon-search" class="newlyBuild" @click=getTableData>搜索</button>
@@ -91,7 +92,7 @@
             label="商户封面"
             align="center">
             <template slot-scope="scope">
-              <img :src="scope.row.cover" style='width:80px;height:80px'>
+              <img :src="scope.row.cover" style='width:50px;height:50px'>
             </template>
           </el-table-column>
           <el-table-column
@@ -471,7 +472,7 @@
   .menu_input span:nth-child(2) {
     text-align: left;
     display: inline-block;
-    width: 419px;
+    width: 240px;
     background: #f7f4fc;
     border-radius: 10px;
   }
@@ -610,7 +611,7 @@
     font-weight: 500;
   }
 
-.delete:focus,.delete:hover{
+.delete:hover{
     background: red !important;
     border: 0 ;
     color: #fff !important;

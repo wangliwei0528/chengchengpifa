@@ -82,10 +82,10 @@
       </div>
       <div class="editrole_center">
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px">
-          <el-form-item label="产品名称" prop="inputName" style="width: 300px">
-            <el-input v-model="ruleForm.inputName" placeholder="请输入产品名称" style="width:300px"></el-input>
+          <el-form-item label="规格名称" prop="inputName" style="width: 300px">
+            <el-input v-model="ruleForm.inputName" placeholder="请输入规格名称" style="width:300px"></el-input>
           </el-form-item>
-          <el-form-item label="分类ID " prop="inputRole" style="width: 300px">
+          <el-form-item label="分类" prop="inputRole" style="width: 300px">
             <el-select v-model="value1" style="width: 180px">
               <el-option
                 v-for="item in data1"
@@ -94,12 +94,11 @@
                 :value="item.id">
               </el-option>
             </el-select>
-          </el-form-item>
+          </el-form-item>              
           <el-form-item
             v-for="(domain, index) in dynamicValidateForm.domains"
             :label="'规格值' + (index ? index : '')"
-            :key="domain.key"
-          >
+            :key="domain.key">
             <el-input v-model="domain.value" style="width:200px"></el-input>
             <button @click.prevent="removeDomain(domain)" style="margin-left: 10px" v-show="index!==0" class="modify">-</button>
             <button @click="addDomain" class="modify">+</button>
@@ -210,6 +209,7 @@
             }
           })
           .then(res => {
+            console.log(res)
             this.data = res.data.data.data;
             if (res.data.data.total < res.data.data.per_page) {
               this.pagination = false;
@@ -231,6 +231,7 @@
             }
           })
           .then(res => {
+            console.log(res)
             this.data1 = res.data.data;
           })
         axios.get("api/admin/spec_edit_show/" + row.id,
@@ -254,7 +255,7 @@
               inputStatus: `${status}`
             };
             this.value1 = p_category_id;
-            // this.dynamicValidateForm.domains.map(itm => itm.value);
+            this.dynamicValidateForm.domains.map(itm => itm.value);
           })
       },
       addrole() {
@@ -262,7 +263,7 @@
         this.ruleForm.inputName = '';
         this.value1 = '';
         this.ruleForm.inputStatus = ''
-        this.dynamicValidateForm.domains = ''
+        // this.dynamicValidateForm.domains = ''
         axios.get("api/admin/spec_create_show",
           {
             headers: {

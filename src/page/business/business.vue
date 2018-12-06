@@ -7,7 +7,7 @@
       </el-breadcrumb>
       <div class="menu_input" style="margin-top: 30px">
         <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
             <div class="grid-content bg-purple">
               <div style="float: left">
                 <span style="font-size: 16px;float: left;margin-top: 5px">请选择地区</span>
@@ -17,21 +17,21 @@
                   filterable
                   change-on-select
                   v-model="regionsValue"
-                  style="margin-left: 20px;width: 300px"
+                  style="margin-left: 20px;width: 150px"
                 ></el-cascader>
               </div>
             </div>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="8">
             <div class="grid-start bg-purple-light text-left">
               <div>
-                <span style="font-size: 16px;display: inline-block;margin-top: 10px">请选择行业</span>
+                <span style="font-size: 16px;display: inline-block;margin-top: 10px">选择行业</span>
                 <el-cascader
                   placeholder="请选择"
                   :options="industrys1"
                   v-model="industrysValue"
                   :props="props"
-                  style="margin-left: 20px;width: 300px"
+                  style="margin-left: 10px;width: 150px"
                 ></el-cascader>
               </div>
             </div>
@@ -41,15 +41,15 @@
 
       <div class="menu_input1">
         <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
             <div class="grid-content bg-purple">
               <div style="float: left;margin-left: 50px">
                 <span style="font-size: 16px;float: left;margin-top: 5px">账户</span>
-                <el-input v-model="mobileName" style="margin-left: 20px;width: 300px" placeholder="请输入账号"></el-input>
+                <el-input v-model="mobileName" style="margin-left: 20px;width: 150px" placeholder="请输入账号"></el-input>
               </div>
             </div>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="16">
             <div class="grid-content bg-purple-light">
               <div>
                 <span style="font-size: 16px;margin-right: 10px;">商户名称</span>
@@ -59,7 +59,7 @@
                     v-model="name"
                     @keyup.enter.native="getTableData"
                     class="input_search"
-                    style="width: 300px"
+                    style="width: 150px"
                   >
                   </el-input>
                   <button class="newlyBuild" @click=getTableData>搜索</button>
@@ -71,10 +71,7 @@
             </div>
           </el-col>
         </el-row>
-
-
       </div>
-
     </div>
 
     <div class="center">
@@ -116,7 +113,7 @@
             label="商户封面"
             align="center">
             <template slot-scope="scope">
-              <img :src="scope.row.cover" style='width:80px;height:80px'>
+              <img :src="scope.row.cover" style='width:50px;height:50px'>
             </template>
           </el-table-column>
           <el-table-column
@@ -179,8 +176,8 @@
           <el-form-item label="账户" prop="mobile" style="width: 300px">
             <el-input v-model="ruleForm.mobile" placeholder="请输入账户"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="pwd" style="width: 300px" v-if="!id">
-            <el-input v-model="ruleForm.pwd" placeholder="请输入账户"></el-input>
+          <el-form-item label="密码" prop="pwd" style="width: 300px">
+            <el-input v-model="ruleForm.pwd" placeholder="请输入账户" type='password'></el-input>
           </el-form-item>
           <el-form-item label="用户状态" prop="inputStatus" style="width:300px" v-show="this.id">
             <el-radio v-model="ruleForm.inputStatus" label="1">启用</el-radio>
@@ -334,14 +331,13 @@
               'Accept': 'application/vnd.lingmo.v1+json'
             },
             params: params,
-            paramsSerializer: function (params) {
-              return qs.stringify(params)
-            }
+            // paramsSerializer: function (params) {
+            //   return qs.stringify(params)
+            // }
           })
           .then(res => {
-            this.industrys1 = res.data.data.data.industrys;
-            console.log(this.industrys1)
-            this.data = res.data.data.data.wholesalers.data;
+            this.industrys1 = res.data.data.data.industrys;//行业
+            this.data = res.data.data.data.wholesalers.data;//数据
             if (res.data.data.data.wholesalers.total < res.data.data.data.wholesalers.per_page) {
               this.pagination = false;
             } else {
@@ -351,7 +347,7 @@
             this.per_page = res.data.data.data.wholesalers.per_page;
           })
       },
-// 编辑
+      // 编辑
       editClick(index, row) {
         this.id = row.id
         this.mask = true;
@@ -390,7 +386,6 @@
               pwd: pwd,
               inputStatus: `${status}`
             };
-
             this.selectedOptions = region_id
             // this.ruleForm.industry_id = p_industry_id
             this.srcOthers2 = cover
@@ -459,11 +454,8 @@
                   type: "warning",
                 })
               }
-
             })
-
         };
-
         // this.form.img_path = event.target.files[0];
       },
       // 提交
@@ -541,8 +533,8 @@
                   message: res.data.data.data.message,
                   type: "success",
                 })
-                this.getTableData()
-                this.mask = false;
+                this.mask = false
+                this.getTableData()                
               } else {
                 this.$message({
                   message: res.data.data.data.message,
@@ -774,7 +766,7 @@
     font-size: 16px;
     font-weight: 500;
   }
-.delete:focus,.delete:hover{
+  .delete:hover{
     background: red !important;
     border: 0 ;
     color: #fff !important;
