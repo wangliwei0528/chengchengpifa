@@ -188,7 +188,7 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.data = res.data.data.data;
           if (res.data.data.total < res.data.data.per_page) {
             this.pagination = false;
@@ -210,7 +210,7 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.data1 = res.data.data;
         });
       axios

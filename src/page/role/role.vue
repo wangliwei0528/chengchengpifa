@@ -118,9 +118,9 @@ export default {
     this.token = localStorage.getItem("token");
     this.getTableData();
   },
-   mounted() {
-      this.date();
-    },
+  mounted() {
+    this.date();
+  },
   methods: {
     getTableData() {
       //角色管理列表
@@ -173,6 +173,7 @@ export default {
           }
         })
         .then(res => {
+          console.log(res)
           this.data1 = res.data.data.roles;
           this.getTableData();
           let { title, content } = this.data1;
@@ -183,11 +184,12 @@ export default {
           this.$refs.tree.setCheckedKeys(res.data.data.permissions);
         });
     },
+    //得到所有id
     getCheckedNodes() {
       const vm = this;
       let nodes = vm.$refs.tree.getCheckedNodes(true);
-      let xx = nodes.map(itm => itm.id);
-      return xx;
+      let id = nodes.map(itm => itm.id);
+      return id;
     },
     addrole() {
       //新建角色
@@ -202,7 +204,7 @@ export default {
           }
         })
         .then(res => {
-          // console.log(res)
+          console.log(res)
           let resdata = [];
           this.treeData(res.data.data, resdata);
           this.data4 = resdata;

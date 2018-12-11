@@ -36,13 +36,14 @@ export default {
       this.date();
     },
   methods: {
+    //判断两次密码是否一致
     submission() {
       if (this.pwd !== this.repwd) {
         this.$message({
           message: "两次密码不一致",
           type: "warning"
         });
-      } else {
+      } else if (this.pwd == this.repwd) {
         let data = {
           id: localStorage.getItem("id"),
           pwd: this.pwd
@@ -60,6 +61,8 @@ export default {
                 message: res.data.data.data.message,
                 type: "success"
               });
+              this.$router.push("/");
+              localStorage.clear()
             } else {
               this.$message({
                 message: res.data.data.data.message,
