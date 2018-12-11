@@ -35,6 +35,7 @@ import EditPlist from '@/page/Plist/EditPlist'
 import PSku from '@/page/PSku/PSku'
 // 订单列表
 import OrderList from '@/page/OrderList/OrderList'
+import update from '@/page/updatepwd/updatepwd'
 Vue.use(Router)
 
 export default new Router({
@@ -161,6 +162,14 @@ export default new Router({
             title: '订单列表'
           },
           component: OrderList
+        },
+        {
+          path: '/updatepwd',
+          name: 'updatepwd',
+          mata: {
+            title: '修改密码'
+          },
+          component: update
         },
       ]
     }

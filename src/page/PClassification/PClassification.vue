@@ -177,6 +177,9 @@
       this.token = localStorage.getItem('token')
       this.getTableData()
     },
+     mounted() {
+      this.date();
+    },
     methods: {
       getTableData() {
         axios.get("/api/admin/category_cate_index",

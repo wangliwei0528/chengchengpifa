@@ -19,7 +19,10 @@
 
   export default {
     name: "Home",
-    components: {Top, sidebar}
+    components: {Top, sidebar},
+     mounted() {
+      this.date();
+    },
   }
 </script>
 

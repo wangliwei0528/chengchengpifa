@@ -295,6 +295,9 @@ export default {
     this.getheader();
     // console.log(this.editorOption)
   },
+   mounted() {
+      this.date();
+    },
   methods: {
     // 编辑
     getEdit() {
@@ -414,9 +417,7 @@ export default {
     },
     //移除图片列表
     handleRemove(file, fileList) {
-      // console.log(file, fileList);
       this.imgList = fileList;
-       console.log(this.imgList)
     },
     //展示图片列表
     handlePictureCardPreview(file) {

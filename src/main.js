@@ -46,7 +46,17 @@ Vue.config.productionTip = false
 
 Vue.prototype.HOST = '/api'
 
-
+//判断token过期
+Vue.prototype.date = function () {
+  let date = localStorage.getItem('expires_in')
+  let currDate = parseInt(new Date().getTime()/1000)
+  if (currDate > date) {
+    window.localStorage.clear('token')
+    router.replace({
+      path: '/' // 到登录页重新获取token
+    })
+  }
+};
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

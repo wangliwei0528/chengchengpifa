@@ -37,6 +37,9 @@
     created() {
       this.getData()
     },
+     mounted() {
+      this.date();
+    },
     methods: {
       // 渲染页面
       getData() {

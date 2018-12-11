@@ -12,15 +12,19 @@
 							<i class="el-icon-arrow-down el-icon--right"></i>
 						</span>
 						<el-dropdown-menu slot="dropdown">
-							<el-dropdown-item command="password" style='color:#00c6b0'>修改密码</el-dropdown-item>
-							<el-dropdown-item command="logout" style='color:#00c6b0'>退出系统</el-dropdown-item>
+							<el-dropdown-item command="password" style='color:#00c6b0'>
+                <button type="text" @click="updatepwd" class="signOut1">修改密码</button>
+              </el-dropdown-item>
+							<el-dropdown-item @click="signOut()" style='color:#00c6b0'> 
+                <button type="text" @click="signOut()" class="signOut1">退出系统</button>
+              </el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
         <!-- <button type="text" class="signOut">管理员管理</button> -->
       </el-col>
-      <el-col :span="2" class="out">
+      <!-- <el-col :span="2" class="out">
         <button type="text" @click="signOut()" class="signOut1">退出</button>
-      </el-col>
+      </el-col> -->
     </div>
   </div>
 </template>
@@ -34,11 +38,15 @@
     methods: {
       signOut() {
         this.$router.push("/");
+        localStorage.clear()
         this.$message({
           message: '退出成功',
           type: "success",
         })
       },
+      updatepwd(){
+        this.$router.push({name:'updatepwd'})
+      }
     }
   }
 </script>

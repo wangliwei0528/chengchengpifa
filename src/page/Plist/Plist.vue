@@ -212,6 +212,9 @@
       this.token = localStorage.getItem('token')
       this.getTableData()
     },
+     mounted() {
+      this.date();
+    },
     methods: {
       // 渲染页面
       getTableData() {

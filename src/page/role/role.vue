@@ -118,6 +118,9 @@ export default {
     this.token = localStorage.getItem("token");
     this.getTableData();
   },
+   mounted() {
+      this.date();
+    },
   methods: {
     getTableData() {
       //角色管理列表

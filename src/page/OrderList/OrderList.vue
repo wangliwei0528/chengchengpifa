@@ -299,6 +299,9 @@ export default {
     this.getTableData();
     this.getGoodsList();
   },
+   mounted() {
+      this.date();
+    },
   methods: {
     // 地址 json文件
     getGoodsList() {

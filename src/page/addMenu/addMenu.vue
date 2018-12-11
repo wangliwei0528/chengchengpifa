@@ -89,6 +89,9 @@
       this.token = localStorage.getItem("token");
       this.getheader();
     },
+     mounted() {
+      this.date();
+    },
     methods: {
       //获取header
       getheader() {

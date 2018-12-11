@@ -6,17 +6,17 @@
         <p>welcome</p>
         <div class="user"><span style="font-size: 0.3rem">用户名</span>
           <input placeholder="请输入你的账号" type="username" id="username" v-model="username"
-                 maxlength="11" @keyup.enter.native="login"/>
+                 maxlength="11" @keyup.enter.native="login" style='padding-left: 10px;'/>
         </div>
         <p id='checkUserNameResult'></p>
         <div class="pass"><span style="font-size: 0.3rem">密 码  </span>
           <input placeholder="请输入你的密码" type="password" id="password" v-model="password"
-                 maxlength="20" @keyup.enter.native="login"/>
+                 maxlength="20" @keyup.enter.native="login" style='padding-left: 10px;'/>
         </div>
         <p id="checkPasswordResult"></p>
         <div class="bottom">
           <el-button @click="login()">登录</el-button>
-          <span>忘记密码 ？</span>
+          <!-- <span>忘记密码 ？</span> -->
         </div>
 
       </div>
@@ -42,6 +42,9 @@
     created() {
       localStorage.removeItem('token')
     },
+     mounted() {
+      this.date();
+    },
     methods: {
       login() {
         let validate = this.check()
@@ -51,15 +54,16 @@
             pwd: this.password
           }
           this.$axios.post("/api/admin/login", data, {
-
             headers: {
               'Accept': 'application/vnd.lingmo.v1+json'
             },
           }).then(
             (res) => {
+              console.log(res)
               this.wholesaler = res.data.data.wholesaler;
               this.data = res.data;
               this.token = res.data.data.token;
+              this.expires_in = res.data.data.expires_in;
               if (res.data.status == 200) {
                 this.$message({
                   message: res.data.data.message,
@@ -68,6 +72,8 @@
                 localStorage.setItem('token', this.token)
                 localStorage.setItem('cover', this.wholesaler.cover)
                 localStorage.setItem('title', this.wholesaler.title)
+                localStorage.setItem('id', this.wholesaler.id)
+                localStorage.setItem('expires_in', this.expires_in)
                 this.$router.push({path: "/Home", query: {wholesaler: this.wholesaler}});
                 // this.$router.push("/Home");
               } else {

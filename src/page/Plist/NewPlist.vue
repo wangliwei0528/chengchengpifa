@@ -279,6 +279,9 @@ export default {
     this.getheader();
     // console.log(this.editorOption)
   },
+   mounted() {
+      this.date();
+    },
   methods: {
     //获取header
     getheader() {
@@ -421,7 +424,7 @@ export default {
         let testFile = new FormData();
         testFile.append("img", files);
         // console.log(files, event, testFile.get('file'))
-        let data = testFile;
+        let data = testFile; 
         axios
           .post("api/admin/upFile", data, {
             headers: {
